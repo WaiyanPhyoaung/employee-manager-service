@@ -19,6 +19,7 @@ public class EmployeeService {
     public List<Employee> getAllEmployees(){
         return repo.findAll();
     }
+
     public Employee getEmployeeById(long id){
         return repo.findById(id).orElseThrow(() -> new RuntimeException("No such employee"));
     }
@@ -28,8 +29,14 @@ public class EmployeeService {
         return repo.save(employee);
 
     }
-    public Employee updateEmployee(Employee employee){
-        return repo.save(employee);
+    public Employee updateEmployee(long id,Employee employee){
+        Employee e2 = getEmployeeById(id);
+        e2.setName(employee.getName());
+        e2.setEmail(employee.getEmail());
+        e2.setImageUrl(employee.getImageUrl());
+        e2.setJobTitles(employee.getJobTitles());
+        e2.setPhoneNumber(employee.getPhoneNumber());
+        return repo.save(e2);
     }
     public void deleteEmployee(long id){
         var e1 = getEmployeeById(id);
